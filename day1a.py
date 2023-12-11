@@ -1001,7 +1001,6 @@ kdkjqdkvgs2"""
 
 
 int_numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-string_numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 
 sum = 0
 
@@ -1010,8 +1009,7 @@ for i in string.split('\n'):
     first_digit = -1
     last_digit_index = -1
     last_digit = -1
-    
-    
+
     for j in int_numbers:
         if str(j) in i:
             if i.find(str(j)) < first_digit_index:
@@ -1020,16 +1018,6 @@ for i in string.split('\n'):
             if i.rfind(str(j)) > last_digit_index:
                 last_digit_index = i.rfind(str(j))
                 last_digit = j
-                
-    for j in range(0, len(string_numbers)):
-        if string_numbers[j] in i.lower():
-            if i.lower().find(string_numbers[j]) < first_digit_index:
-                first_digit_index = i.lower().find(string_numbers[j])
-                first_digit = j
-            if i.lower().rfind(string_numbers[j]) > last_digit_index:
-                last_digit_index = i.lower().rfind(string_numbers[j])
-                last_digit = j
-    
 
     sum = sum + 10 * first_digit + last_digit
 
