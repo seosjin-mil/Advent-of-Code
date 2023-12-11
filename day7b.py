@@ -1001,12 +1001,22 @@ AATAT 161"""
 
 games = [[j for j in i.split(' ')] for i in games.split('\n')]
 
-card_weights = {'A': 14, 'K': 13, 'Q': 12, 'J': 11, 'T': 10, '9': 9, '8': 8, '7': 7, '6': 6, '5': 5, '4': 4, '3': 3, '2': 2}
+card_weights = {'A': 14, 'K': 13, 'Q': 12, 'J': 1, 'T': 10, '9': 9, '8': 8, '7': 7, '6': 6, '5': 5, '4': 4, '3': 3, '2': 2}
 
 def rank_hand(h):
-    s = set([i for i in h])
-    l = [h.count(i) for i in s]
-    
+    d = {i: h.count(i) for i in h}
+
+    if 'J' in d:
+        if len(d) == 1: return  6
+        max_card = [i for i in h if i != 'J'][0]
+        for i in d:
+            if i != 'J' and d[i] > d[max_card]:
+                max_card = i
+        d[max_card] = d[max_card] + d['J']
+        del d['J']
+
+    l = [d[i] for i in d]
+
     if len(l) == 1:
         return                  6 # five of a kind
     elif len(l) == 2:
@@ -1055,33 +1065,3 @@ for i in range(0, len(ret_l)):
     ret = ret + (i + 1) * int(ret_l[i][1][1])
 
 print(ret)
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
