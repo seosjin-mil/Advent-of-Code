@@ -194,15 +194,46 @@ while len(unvisited):
         if i not in visited:
             unvisited.append(i)
 
-print((len(visited))//2)
+def ray_trace(y, x):
+	counter = 0
+	i = 0
 
+	if string[y][x] == '*':
+		while i < x:
+			if string[y][i] in '|S':
+				counter = counter + 1
+			if string[y][i] == 'F':
+				i = i + 1
+				while string[y][i] == '-':
+					i = i + 1
+				if string[y][i] == 'J':
+					counter = counter + 1
+			if string[y][i] == 'L':
+				i = i + 1
+				while string[y][i] == '-':
+					i = i + 1
+				if string[y][i] == '7':
+					counter = counter + 1
+			i = i + 1
 
+	if counter % 2:
+		string[y] = string[y][:x] + ' ' + string[y][x + 1:]
 
+	return counter % 2
 
+for y in range(0, len(string)):
+	for x in range(0, len(string)):
+		if (y, x) not in visited:
+			string[y] = string[y][:x] + '*' + string[y][x + 1:]
 
+ret = 0
+for y in range(0, len(string)):
+	for x in range(0, len(string[y])):
+		ret = ret + ray_trace(y, x)
 
-
-
+for i in string:
+	print(i)
+print(ret)
 
 
 
